@@ -14,19 +14,28 @@ class Product:
 
 @dataclass
 class Plate:
-    """Represents a plate/meal containing multiple food products."""
+    """Represents a plate/meal containing multiple food products with quantities."""
     name: str
-    products: List[Product] = None
+    products: dict[Product, float] = None
 
     def __post_init__(self):
-        """Initialize products list if not provided."""
+        """Initialize products dictionary if not provided."""
         if self.products is None:
-            self.products = []
+            self.products = {}
     
-    def add_product(self, product: Product) -> None:
-        """Add a product to the plate."""
-        self.products.append(product)
+    def add_product(self, product: Product, quantity: float = 1.0) -> None:
+        """Add a product to the plate.
+        
+        Args:
+            product: Product to add
+            quantity: Amount of product (default 1.0)
+        Raises:
+            ValueError: If quantity is not positive
+        """
+        if quantity <= 0:
+            raise ValueError("Quantity must be positive")
+        self.products[product] = self.products.get(product, 0) + quantity
     
     def total_calories(self) -> float:
-        """Calculate total calories from all products on the plate."""
-        return sum(p.calories for p in self.products)
+        """Calculate total calories from all products on the plate accounting for quantities."""
+        return sum(p.calories * q for p, q in self.products.items())

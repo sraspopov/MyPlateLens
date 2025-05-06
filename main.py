@@ -26,14 +26,14 @@ def main() -> None:
         
         if apple and banana:
             breakfast = Plate("Breakfast")
-            breakfast.add_product(apple)
-            breakfast.add_product(banana)
+            breakfast.add_product(apple, 1.5)  # 1.5 apples
+            breakfast.add_product(banana, 2)   # 2 bananas
             
             logger.info(f"Nutrition for {breakfast.name}:")
             logger.info(f"Total calories: {breakfast.total_calories():.1f}kcal")
             logger.info("Meal details:")
-            for product in breakfast.products:
-                logger.info(f"- {product.name}: {product.calories}kcal")
+            for product, quantity in breakfast.products.items():
+                logger.info(f"- {quantity}x {product.name}: {product.calories * quantity:.1f}kcal")
     except Exception as e:
         logger.error(f"Application error: {e}")
         sys.exit(1)

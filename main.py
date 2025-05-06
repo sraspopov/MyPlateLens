@@ -1,7 +1,6 @@
+from __future__ import annotations
 import csv
 from dataclasses import dataclass
-
-from __future__ import annotations
 
 @dataclass
 class Product:
@@ -27,14 +26,6 @@ class Plate:
     
     def total_calories(self) -> float:
         return sum(p.calories for p in self.products)
-class Product:
-    name: str
-    calories: float
-    protein: float
-    fat: float
-    carbohydrates: float
-    fiber: float
-    sugar: float
 
 class ProductDatabase:
     def __init__(self, csv_path='products.csv'):

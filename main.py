@@ -1,22 +1,32 @@
 import csv
 from dataclasses import dataclass
 
+from __future__ import annotations
+
+@dataclass
+class Product:
+    name: str
+    calories: float
+    protein: float
+    fat: float
+    carbohydrates: float
+    fiber: float
+    sugar: float
+
 @dataclass
 class Plate:
     name: str
-    products: list[Product] = None
+    products: list['Product'] = None
 
     def __post_init__(self):
         if self.products is None:
             self.products = []
     
-    def add_product(self, product: Product):
+    def add_product(self, product: 'Product'):
         self.products.append(product)
     
     def total_calories(self) -> float:
         return sum(p.calories for p in self.products)
-
-@dataclass
 class Product:
     name: str
     calories: float

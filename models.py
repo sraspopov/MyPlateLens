@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import List
 
-@dataclass
+@dataclass(frozen=True)  # Make immutable and hashable
 class Product:
     """Represents a food product with nutritional information."""
     name: str
@@ -11,6 +11,10 @@ class Product:
     carbohydrates: float
     fiber: float
     sugar: float
+
+    def __hash__(self):
+        """Make Product hashable based on its name."""
+        return hash(self.name)
 
 @dataclass
 class Plate:

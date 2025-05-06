@@ -19,24 +19,35 @@ def main() -> None:
     
     try:
         db = ProductDatabase()
-        
-        # Example usage
-        apple = db.get_product('Apple')
-        banana = db.get_product('Banana')
-        
-        if apple and banana:
-            breakfast = Plate("Breakfast")
-            breakfast.add_product(apple, 1.5)  # 1.5 apples
-            breakfast.add_product(banana, 2)   # 2 bananas
-            
-            logger.info(f"Nutrition for {breakfast.name}:")
-            logger.info(f"Total calories: {breakfast.total_calories():.1f}kcal")
-            logger.info("Meal details:")
-            for product, quantity in breakfast.products.items():
-                logger.info(f"- {quantity}x {product.name}: {product.calories * quantity:.1f}kcal")
+        log_meal_nutrition(db)
     except Exception as e:
         logger.error(f"Application error: {e}")
         sys.exit(1)
+
+def log_meal_nutrition(db: ProductDatabase) -> None:
+    """Log nutritional information for a sample meal."""
+    apple = db.get_product('Apple')
+    banana = db.get_product('Banana')
+    
+    if not apple or not banana:
+        logger.warning("Could not find required products in database")
+        return
+    
+    breakfast = Plate("Breakfast")
+    breakfast.add_product(apple, 1.5)  # 1.5 apples
+    breakfast.add_product(banana, 2)   # 2 bananas
+    
+    logger.info(f"\nNutritional breakdown for {breakfast.name}:")
+    logger.info(f"{'=' * 40}")
+    logger.info(f"Total calories: {breakfast.total_calories():.1f}kcal")
+    logger.info("\nProduct details:")
+    
+    for product, quantity in breakfast.products.items():
+        logger.info(
+            f"- {quantity:.1f}x {product.name.ljust(15)} "
+            f"{product.calories * quantity:6.1f}kcal "
+            f"({product.calories}kcal each)"
+        )
 
 if __name__ == "__main__":
     main()

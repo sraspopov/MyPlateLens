@@ -2,6 +2,21 @@ import csv
 from dataclasses import dataclass
 
 @dataclass
+class Plate:
+    name: str
+    products: list[Product] = None
+
+    def __post_init__(self):
+        if self.products is None:
+            self.products = []
+    
+    def add_product(self, product: Product):
+        self.products.append(product)
+    
+    def total_calories(self) -> float:
+        return sum(p.calories for p in self.products)
+
+@dataclass
 class Product:
     name: str
     calories: float
@@ -42,11 +57,18 @@ def main():
     
     # Example usage
     apple = db.get_product('Apple')
-    if apple:
-        print(f"\nNutrition for {apple.name}:")
-        print(f"Calories: {apple.calories}kcal")
-        print(f"Protein: {apple.protein}g")
-        print(f"Carbs: {apple.carbohydrates}g")
+    banana = db.get_product('Banana')
+    
+    if apple and banana:
+        breakfast = Plate("Breakfast")
+        breakfast.add_product(apple)
+        breakfast.add_product(banana)
+        
+        print(f"\nNutrition for {breakfast.name}:")
+        print(f"Total calories: {breakfast.total_calories():.1f}kcal")
+        print("\nDetails:")
+        for product in breakfast.products:
+            print(f"- {product.name}: {product.calories}kcal")
 
 if __name__ == "__main__":
     main()

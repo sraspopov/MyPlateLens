@@ -54,7 +54,8 @@ def test_product_creation(sample_product):
 def test_plate_operations(sample_plate, sample_product):
     assert sample_plate.name == "Test Plate"
     assert len(sample_plate.products) == 1
-    assert sample_plate.products[0] == sample_product
+    assert sample_product in sample_plate.products
+    assert sample_plate.products[sample_product] == 1.0
     assert sample_plate.total_calories() == 100.0
 
 def test_product_database_load(temp_csv):
@@ -81,5 +82,6 @@ def test_plate_total_calories_with_multiple_products(sample_plate, sample_produc
         fiber=6.0,
         sugar=20.0
     )
-    sample_plate.add_product(another_product)
-    assert sample_plate.total_calories() == 300.0
+    sample_plate.add_product(another_product, 2.0)  # Add 2 units
+    # Original product (100kcal) + 2 units of new product (200kcal * 2)
+    assert sample_plate.total_calories() == 500.0

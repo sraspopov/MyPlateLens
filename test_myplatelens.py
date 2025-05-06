@@ -1,5 +1,6 @@
 import pytest
-from main import Product, Plate, ProductDatabase
+from models import Product, Plate
+from database import ProductDatabase
 import os
 import csv
 

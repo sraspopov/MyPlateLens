@@ -1,7 +1,7 @@
 import sys
 from loguru import logger
-from models import Product, Plate
-from database import ProductDatabase
+from myplatelens.models import Product, Plate
+from myplatelens.database import ProductDatabase
 
 def configure_logging() -> None:
     """Configure logging format and level."""

@@ -1,9 +1,26 @@
 [project]
-name = "myplatelens"
+name = "MyPlateLens"
 version = "0.1.0"
-description = "Add your description here"
+description = "Nutrition analysis application."
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.11"
+authors = [
+    {name = "Sergii Raspopov with Aider", email = "raspopovsergii@gmail.com"},
+]
 dependencies = [
     "loguru>=0.7.3",
+    "openfoodfacts>=2.5.1",
 ]
+
+[project.optional-dependencies]
+test = [    
+    "pytest>=8.3.5",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v"
+
+[project.urls]
+Homepage = "https://github.com/sraspopov/MyPlateLens"
+Documentation = "https://github.com/sraspopov/MyPlateLens/blob/develop/README.md"

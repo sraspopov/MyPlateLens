@@ -1,38 +1,30 @@
 # MyPlateLens
 
-MyPlateLens is a simple nutrition tracking application that helps you calculate the nutritional content of your meals. It allows you to:
+MyPlateLens is a simple nutrition tracking application that helps you calculate the nutritional content of your meals.
 
-- Track food products and their nutritional values
-- Create meals/plates by combining multiple foods
-- Calculate total calories and nutrients based on portion sizes
+## Installation
 
-## Features
+1. Install [uv](https://github.com/astral-sh/uv) (recommended Python package installer):
+   ```bash
+   pip install uv
+   ```
 
-- Food product database with nutritional information
-- Meal composition tracking with customizable quantities
-- Simple calorie and nutrient calculations
-- Easy-to-use command line interface
+2. Install MyPlateLens in development mode:
+   ```bash
+   uv pip install -e .
+   ```
 
-## Quick Start
+## Running the Application
 
-1. Install dependencies:
+After installation, you can run the application with:
 ```bash
-pip install -r requirements.txt
+python -m myplatelens
 ```
 
-2. Run the application:
+## Testing
+
+To run tests (requires test dependencies):
 ```bash
-python main.py
-```
-
-## Example Usage
-
-```python
-# Create a meal
-breakfast = Plate("Breakfast")
-breakfast.add_product(apple, 1.5)  # 1.5 apples
-breakfast.add_product(banana, 2)   # 2 bananas
-
-# View nutrition info
-print(f"Total calories: {breakfast.total_calories():.1f}kcal")
+uv pip install -e ".[test]"
+pytest
 ```

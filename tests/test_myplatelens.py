@@ -1,11 +1,12 @@
 import pytest
-from models import Product, Plate
-from database import ProductDatabase
-import os
+from pathlib import Path
 import csv
+from myplatelens.models import Product, Plate
+from myplatelens.database import ProductDatabase
 
 @pytest.fixture
-def sample_product():
+def sample_product() -> Product:
+    """Fixture providing a sample Product for testing."""
     return Product(
         name="Test Product",
         calories=100.0,
@@ -17,13 +18,15 @@ def sample_product():
     )
 
 @pytest.fixture
-def sample_plate(sample_product):
+def sample_plate(sample_product) -> Plate:
+    """Fixture providing a sample Plate with one product for testing."""
     plate = Plate("Test Plate")
     plate.add_product(sample_product)
     return plate
 
 @pytest.fixture
-def temp_csv(tmp_path):
+def temp_csv(tmp_path: Path) -> Path:
+    """Fixture creating a temporary CSV file with test product data."""
     csv_path = tmp_path / "test_products.csv"
     with open(csv_path, 'w', newline='') as f:
         writer = csv.DictWriter(f, fieldnames=[

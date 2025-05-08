@@ -2,7 +2,7 @@ import csv
 from typing import Optional
 from pathlib import Path
 from loguru import logger
-from models import Product
+from myplatelens.models import Product
 
 class ProductDatabase:
     """Handles loading and querying product nutritional data."""
